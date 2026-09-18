@@ -1,0 +1,7 @@
+{
+  "source": "https://github.com/0xShug0/audio.cpp.git",
+  "commit": "518550862785bc46d482517643001a6165170135",
+  "model": "bosonai/higgs-tts-3-4b",
+  "revision": "239f63fb7b02b1aa085f98d9efae5e35cc5523e8",
+  "files": ["config.json", "model.safetensors", "model.safetensors.index.json", "tokenizer.json", "tokenizer_config.json", "chat_template.jinja", "LICENSE", "PROMPTING.md"]
+}
