@@ -1,0 +1,10 @@
+runtime/
+models/
+voices/
+build/
+server.json
+*.log
+*.pid
+*.lock
+__pycache__/
+.enabled

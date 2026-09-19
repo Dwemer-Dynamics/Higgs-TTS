@@ -1,0 +1,21 @@
+{
+  "host": "127.0.0.1",
+  "port": 8025,
+  "backend": "cuda",
+  "device": 0,
+  "threads": 4,
+  "lazy_load": true,
+  "max_request_body_bytes": 1048576,
+  "voice_dir": "voices",
+  "models": [
+    {
+      "id": "higgs-v3",
+      "family": "higgs_audio_tts",
+      "path": "models/higgs-v3",
+      "task": "tts",
+      "mode": "offline",
+      "session_options": {"higgs_audio_tts.reference_cache_slots": 4},
+      "default_request_options": {"max_tokens": 1024, "text_chunk_size": 512}
+    }
+  ]
+}
