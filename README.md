@@ -22,6 +22,24 @@ retried. Existing voices and server configuration are retained. Stop the service
 before reinstalling. Keep the previous runtime revision until the new one has
 passed validation.
 
+Install/Reinstall in the launcher offers **Full precision** or **Q8** in its
+installer window. Enter keeps the current model on an existing installation,
+or selects full precision on a new installation. Q8 downloads only the pinned
+GGUF and model license (about 5.1 GB), not the full-precision weights.
+
+For direct installation, use `bash install.sh full`, `bash install.sh q8`, or
+`bash install.sh ask`. Omitting the argument preserves an existing model choice.
+The distro command is `sudo install_higgs_tts auto ask`; automation can use
+`sudo install_higgs_tts auto q8` or `sudo install_higgs_tts auto full`.
+
+To switch later, stop Higgs, open **Configure**, select **4 Change model**, then
+start Higgs again. The installer verifies the selected download before updating
+only the `higgs-v3` model path in `server.json`. Port 8025, voices, request settings,
+startup preference and mod connectors stay unchanged. Previously downloaded
+models are retained and verified for reuse when switching back. A failed download
+leaves the current configuration intact. Both variants use the same service and
+model ID, so no mod-side connector changes are required.
+
 ## Service controls
 
 Run these through the distro launcher, or as root during development:
@@ -43,7 +61,11 @@ The full-precision development test on an RTX 4090 used roughly 9–10 GB additi
 VRAM (estimated, not an isolated peak measurement). Short CHIM requests took
 1.5–1.9 seconds warm and 15–31 seconds after restart. These are observations, not
 minimum requirements or performance guarantees. Allow room for the game and
-other GPU services. Q8 is not yet the validated installer default.
+other GPU services. Q8 is optional; full precision remains the fresh-install
+default. Q8's 5.1 GB file size is not its VRAM requirement. A same-voice comparison
+on an RTX 4090 measured roughly 11.4 GiB additional GPU memory for full precision
+and 9.0 GiB for Q8, with other GPU services active; these were whole-GPU deltas,
+not isolated minimum requirements.
 
 ## API and voices
 

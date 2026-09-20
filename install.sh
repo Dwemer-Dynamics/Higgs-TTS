@@ -12,6 +12,7 @@ if [ -f server.pid ] && start-stop-daemon --status --pidfile "$PWD/server.pid" >
     echo 'Stop Higgs before reinstalling. Existing runtime was preserved.' >&2
     exit 1
 fi
+variant=$(python3 download_model.py --select "${1:-keep}")
 selection=/var/lib/dwemerdistro/cuda-selection.env
 if [ ! -r "$selection" ] || [ "$(stat -c '%U:%G' "$selection")" != root:root ]; then
     echo 'Run the DwemerDistro CUDA dependency installer first.' >&2
@@ -40,18 +41,7 @@ cmake -S "$source_dir" -B "$source_dir/build" -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_CUDA_COMPILER="$cuda_home/bin/nvcc" -DCMAKE_CUDA_ARCHITECTURES="${capability/./}" \
     -DAUDIOCPP_MODEL_SET=custom -DAUDIOCPP_MODELS=higgs_audio_tts -DAUDIOCPP_DEPLOYMENT_BUILD=ON
 cmake --build "$source_dir/build" --parallel "${BUILD_PARALLEL:-2}" --target audiocpp_server
-python3 download_model.py
-if [ ! -f server.json ]; then
-    python3 - <<'PY'
-import json
-from pathlib import Path
-root = Path.cwd()
-config = json.loads(Path('server.example.json').read_text())
-config['voice_dir'] = str(root / 'voices')
-config['models'][0]['path'] = str(root / 'models/higgs-v3')
-Path('server.json').write_text(json.dumps(config, indent=2) + '\n')
-PY
-fi
+python3 download_model.py "$variant"
 ln -sfn "source-$revision/build/bin/audiocpp_server" runtime/audiocpp_server.new
 mv -Tf runtime/audiocpp_server.new runtime/audiocpp_server
 printf '%s\n' "$cuda_home" > runtime/cuda-home
