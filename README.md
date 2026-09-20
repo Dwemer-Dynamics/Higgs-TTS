@@ -22,9 +22,9 @@ retried. Existing voices and server configuration are retained. Stop the service
 before reinstalling. Keep the previous runtime revision until the new one has
 passed validation.
 
-Install/Reinstall in the launcher offers **Full precision** or **Q8** in its
+Install/Reinstall in the launcher offers **Higgs — Full** or **Higgs — Compact (Q8)** in its
 installer window. Enter keeps the current model on an existing installation,
-or selects full precision on a new installation. Q8 downloads only the pinned
+or selects Higgs — Full on a new installation. Higgs — Compact (Q8) downloads only the pinned
 GGUF and model license (about 5.1 GB), not the full-precision weights.
 
 For direct installation, use `bash install.sh full`, `bash install.sh q8`, or

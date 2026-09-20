@@ -70,13 +70,13 @@ def select_model(root, selection):
     """Resolve interactive selection before any build or download changes."""
     if selection != 'ask':
         return selection
-    print('Higgs TTS 3 model selection\n1) Full precision\n2) Q8 - smaller download (5.1 GB); VRAM use is higher than file size', file=sys.stderr)
+    print('Higgs TTS 3 model selection\n1) Higgs — Full\n   Full-precision model. Highest memory usage.\n2) Higgs — Compact (Q8)\n   Smaller model. Lower memory usage.\n   Download: about 5.1 GB. This is not its VRAM requirement.', file=sys.stderr)
     if (root / 'server.json').exists():
         config = json.loads((root / 'server.json').read_text())
         model = next(m for m in config['models'] if m['id'] == 'higgs-v3')
         print(f"Current model: {model['path']}\nEnter) Keep current model", file=sys.stderr)
     else:
-        print('Enter) Full precision (default)', file=sys.stderr)
+        print('Enter) Higgs — Full (default)', file=sys.stderr)
     print('0) Cancel\nSelect: ', end='', file=sys.stderr, flush=True)
     answer = sys.stdin.readline()
     if not answer or answer.strip() == '0':
@@ -114,7 +114,8 @@ def setup_model(root, selection):
     temporary = config_path.with_suffix('.json.tmp')
     temporary.write_text(json.dumps(config, indent=2) + '\n')
     temporary.replace(config_path)
-    print(f'Higgs model selected: {variant}. Port, voices and other settings retained.')
+    label = 'Higgs — Compact (Q8)' if variant == 'q8' else 'Higgs — Full'
+    print(f'Model selected: {label}. Port, voices and other settings retained.')
 
 
 if __name__ == '__main__':
