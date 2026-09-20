@@ -3,5 +3,12 @@
   "commit": "518550862785bc46d482517643001a6165170135",
   "model": "bosonai/higgs-tts-3-4b",
   "revision": "239f63fb7b02b1aa085f98d9efae5e35cc5523e8",
-  "files": ["config.json", "model.safetensors", "model.safetensors.index.json", "tokenizer.json", "tokenizer_config.json", "chat_template.jinja", "LICENSE", "PROMPTING.md"]
+  "files": ["config.json", "model.safetensors", "model.safetensors.index.json", "tokenizer.json", "tokenizer_config.json", "chat_template.jinja", "LICENSE", "PROMPTING.md"],
+  "q8": {
+    "model": "audio-cpp/audio.cpp-gguf",
+    "revision": "074bb6d15e0040ac12b07f04f2ae67c591b75d22",
+    "file": "Higgs-Audio-v3-TTS-4B-GGUF/higgs-audio-v3-tts-4b-q8_0.gguf",
+    "size": 5095354048,
+    "sha256": "79746822045b5bf8f9ab2bda87b16cd3f8ea3d9e319cbcf887a87aa1b537a74a"
+  }
 }
